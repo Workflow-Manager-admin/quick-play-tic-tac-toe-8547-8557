@@ -1,96 +1,133 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --ttt-accent: #e74c3c;
+  --ttt-primary: #3498db;
+  --ttt-secondary: #2ecc71;
+  --ttt-bg: #fff;
+  --ttt-board-bg: #f2f4f8;
+  --ttt-cell-border: #e0e6ed;
+  --ttt-status-color: var(--ttt-primary);
+  --ttt-font: 'system-ui', 'Avenir', 'Helvetica', 'Arial', sans-serif;
 }
 
 body {
+  background: var(--ttt-bg);
+  min-height: 100vh;
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  align-items: center;
+  justify-content: center;
+}
+
+#app, #ttt-root {
+  width: 100vw;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ttt-font);
+  background: var(--ttt-bg);
+  padding: 0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#ttt-status-bar {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  user-select: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#ttt-board-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+#ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 62px);
+  grid-template-rows: repeat(3, 62px);
+  gap: 0.5rem;
+  background: var(--ttt-board-bg);
+  padding: 1.2rem;
+  border-radius: 1.3rem;
+  box-shadow: 0 2px 16px #e0e6ed33;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.ttt-cell {
+  width: 62px;
+  height: 62px;
+  font-size: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: var(--ttt-primary);
   cursor: pointer;
-  transition: border-color 0.25s;
+  border: 2px solid var(--ttt-cell-border);
+  border-radius: 0.95rem;
+  transition: background 0.18s, border-color 0.17s, color 0.14s;
+  font-family: inherit;
+  font-weight: 500;
+  outline: none;
 }
-button:hover {
-  border-color: #646cff;
+.ttt-cell:focus {
+  border-color: var(--ttt-accent);
+  box-shadow: 0 0 0 3px #e74c3c22;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.ttt-cell[disabled] {
+  background: #eef1f4;
+  cursor: default;
+  color: #adb5bd;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+#ttt-restart {
+  margin-top: 2.2rem;
+  padding: 0.85em 2.2em;
+  border-radius: 2em;
+  border: none;
+  background: var(--ttt-accent);
+  color: #fff;
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px #e74c3c11;
+  transition: background 0.163s, box-shadow 0.11s;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+#ttt-restart:hover,
+#ttt-restart:focus {
+  background: #b93221;
+  box-shadow: 0 2px 8px #e74c3c33;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  #ttt-board {
+    grid-template-columns: repeat(3, 42px);
+    grid-template-rows: repeat(3, 42px);
+    padding: 0.8rem;
   }
-  a:hover {
-    color: #747bff;
+  .ttt-cell {
+    width: 42px;
+    height: 42px;
+    font-size: 1.4rem;
   }
-  button {
-    background-color: #f9f9f9;
+  #ttt-status-bar {
+    font-size: 1.13rem;
   }
+  #ttt-restart {
+    margin-top: 1rem;
+    padding: 0.5em 1.25em;
+    font-size: 0.92rem;
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
